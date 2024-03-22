@@ -71,7 +71,7 @@ class _PrincipalViewState extends State<Login> {
                       color: Colors.deepPurple[50],
                     ),
                     child: TextFormField(
-                      obscureText: isVisivel,
+                      obscureText: !isVisivel,
                       decoration: InputDecoration(
                         icon: Icon(Icons.lock),
                         border: InputBorder.none,
