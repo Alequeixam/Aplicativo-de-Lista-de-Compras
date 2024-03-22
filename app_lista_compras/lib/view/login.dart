@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -46,7 +48,6 @@ class _PrincipalViewState extends State<Login> {
                       decoration: const InputDecoration(
                         icon: Icon(Icons.person),
                         border: InputBorder.none,
-                        label: Text('E-mail'),
                         hintText: 'nome@email.com',
                       ),
                       validator: (email) {
@@ -75,8 +76,7 @@ class _PrincipalViewState extends State<Login> {
                       decoration: InputDecoration(
                         icon: Icon(Icons.lock),
                         border: InputBorder.none,
-                        label: Text('Senha'),
-                        hintText: 'Digite sua senha',
+                        hintText: 'senha',
                         // define como visivel ou nao o campo da senha
                         suffixIcon: IconButton(
                             onPressed: () {
@@ -84,7 +84,7 @@ class _PrincipalViewState extends State<Login> {
                                   isVisivel = !isVisivel;
                               });
                             }, 
-                            icon: Icon(isVisivel ? Icons.visibility : Icons.visibility_off)
+                            icon: Icon(!isVisivel ? Icons.visibility : Icons.visibility_off)
                         ),
                       ),
                       validator: (senha) {
