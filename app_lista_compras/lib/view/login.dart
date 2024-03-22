@@ -56,6 +56,7 @@ class _PrincipalViewState extends State<Login> {
                         } else if (!EmailValidator.validate(email)) {
                           return 'Digite um endereço de e-mail válido!';
                         }
+                        return null;
                       },
                     ),
                   ),
@@ -93,6 +94,7 @@ class _PrincipalViewState extends State<Login> {
                         } else if (senha.length < 6) {
                           return 'A senha deve conter no mínimo 6 dígitos!';
                         }
+                        return null;
                       },
                     ),
                   ),
