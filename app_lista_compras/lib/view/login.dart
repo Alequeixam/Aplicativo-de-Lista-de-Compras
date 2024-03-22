@@ -58,8 +58,20 @@ class _PrincipalViewState extends State<Login> {
                       }
                     },
                   ),
-                  
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: (){
+
+                        },
+                        child: Text('Esqueceu a senha?'),
+                      ),
+                    ],
+                  ),
+
                   SizedBox(height: 60),
+
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
