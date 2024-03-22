@@ -15,6 +15,7 @@ class _PrincipalViewState extends State<Login> {
   //Controladores dos campos de texto
   final _emailController = TextEditingController();
   final _senhaController = TextEditingController();
+  bool isVisivel = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,8 @@ class _PrincipalViewState extends State<Login> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // Email
+                  //
                   Container(
                     padding: EdgeInsets.symmetric(
                       horizontal: 6,
@@ -55,7 +58,10 @@ class _PrincipalViewState extends State<Login> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
+
+                  // Senha
+                  //
                   Container(
                     padding: EdgeInsets.symmetric(
                       horizontal: 6,
@@ -65,11 +71,21 @@ class _PrincipalViewState extends State<Login> {
                       color: Colors.deepPurple[50],
                     ),
                     child: TextFormField(
-                      decoration: const InputDecoration(
+                      obscureText: isVisivel,
+                      decoration: InputDecoration(
                         icon: Icon(Icons.lock),
                         border: InputBorder.none,
                         label: Text('Senha'),
                         hintText: 'Digite sua senha',
+                        // define como visivel ou nao o campo da senha
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                                setState(() {
+                                  isVisivel = !isVisivel;
+                              });
+                            }, 
+                            icon: Icon(isVisivel ? Icons.visibility : Icons.visibility_off)
+                        ),
                       ),
                       validator: (senha) {
                         if (senha == null || senha.isEmpty) {
