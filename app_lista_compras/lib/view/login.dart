@@ -20,7 +20,7 @@ class _PrincipalViewState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Login"),
+          title: const Text("Login"),
           backgroundColor: Colors.deepPurple[200],
         ),
         body: Center(
@@ -31,52 +31,68 @@ class _PrincipalViewState extends State<Login> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      label: Text('E-mail'),
-                      hintText: 'nome@email.com',
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 6,
                     ),
-                    validator: (email) {
-                      if (email == null || email.isEmpty) {
-                        return 'Por favor, insira um e-mail';
-                      } else if(!EmailValidator.validate(email)) {
-                        return 'Digite um endereço de e-mail válido!';
-                      }
-                    },
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: Colors.deepPurple[50],
+                    ),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.person),
+                        border: InputBorder.none,
+                        label: Text('E-mail'),
+                        hintText: 'nome@email.com',
+                      ),
+                      validator: (email) {
+                        if (email == null || email.isEmpty) {
+                          return 'Por favor, insira um e-mail';
+                        } else if (!EmailValidator.validate(email)) {
+                          return 'Digite um endereço de e-mail válido!';
+                        }
+                      },
+                    ),
                   ),
-                  SizedBox(height: 20),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      label: Text('Senha'),
-                      hintText: 'Digite sua senha',
+                  const SizedBox(height: 20),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 6,
                     ),
-                    validator: (senha) {
-                      if (senha == null || senha.isEmpty) {
-                        return 'Por favor, insira uma senha';
-                      } else if (senha.length < 6) {
-                        return 'A senha deve conter no mínimo 6 dígitos!';
-                      }
-                    },
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: Colors.deepPurple[50],
+                    ),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.lock),
+                        border: InputBorder.none,
+                        label: Text('Senha'),
+                        hintText: 'Digite sua senha',
+                      ),
+                      validator: (senha) {
+                        if (senha == null || senha.isEmpty) {
+                          return 'Por favor, insira uma senha';
+                        } else if (senha.length < 6) {
+                          return 'A senha deve conter no mínimo 6 dígitos!';
+                        }
+                      },
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                        onPressed: (){
-
-                        },
+                        onPressed: () {},
                         child: Text('Esqueceu a senha?'),
                       ),
                     ],
                   ),
-
-                  SizedBox(height: 60),
-
+                  const SizedBox(height: 60),
                   ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-
-                      }
+                      if (_formKey.currentState!.validate()) {}
                     },
                     child: Text("Entrar"),
                   )
