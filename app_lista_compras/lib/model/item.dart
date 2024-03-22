@@ -1,4 +1,4 @@
-class Item{
+class Item {
   final String nome;
   final int qtde;
 
