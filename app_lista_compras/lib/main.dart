@@ -21,7 +21,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Meu App',
+      title: 'Lista de Compras de Mercado',
       initialRoute: 'login_view',
       routes: {
         'login_view': (context) => Login(),
