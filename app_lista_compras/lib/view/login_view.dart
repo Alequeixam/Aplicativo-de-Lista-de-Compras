@@ -7,10 +7,10 @@ class Login extends StatefulWidget {
   const Login({super.key});
 
   @override
-  State<Login> createState() => _PrincipalViewState();
+  State<Login> createState() => _LoginViewState();
 }
 
-class _PrincipalViewState extends State<Login> {
+class _LoginViewState extends State<Login> {
   //Identificador do formulário
   final _formKey = GlobalKey<FormState>();
 
@@ -110,7 +110,9 @@ class _PrincipalViewState extends State<Login> {
                   const SizedBox(height: 60),
                   ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.pushNamed(context, 'listas_view');
+                      }
                     },
                     child: Text("Entrar"),
                   )

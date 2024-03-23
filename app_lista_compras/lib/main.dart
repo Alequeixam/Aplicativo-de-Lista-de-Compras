@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
-import 'view/Login.dart';
+import '/view/listas_view.dart';
+import 'view/login_view.dart';
+
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +22,11 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Meu App',
-      home: Login(),
+      initialRoute: 'login_view',
+      routes: {
+        'login_view': (context) => Login(),
+        'listas_view': (context) => ListasView(),
+      },
     );
   }
 }
