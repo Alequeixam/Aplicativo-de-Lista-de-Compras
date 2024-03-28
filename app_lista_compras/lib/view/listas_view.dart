@@ -14,9 +14,17 @@ class _ListasViewState extends State<ListasView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tela 1'),
+        title: Text('Listas de Compras'),
       ),
-      body: Text('abrir'),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              Text('abrir'),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
