@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
+import 'package:app_lista_compras/view/recuperacao_view.dart';
+
 import '/view/listas_view.dart';
 import 'view/login_view.dart';
 
@@ -26,6 +28,7 @@ class MainApp extends StatelessWidget {
       routes: {
         'login_view': (context) => Login(),
         'listas_view': (context) => ListasView(),
+        'recuperacao_view': (context) => Recuperacao(),
       },
     );
   }
