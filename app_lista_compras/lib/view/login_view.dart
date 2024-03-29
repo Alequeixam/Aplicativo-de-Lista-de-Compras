@@ -46,16 +46,16 @@ class _LoginViewState extends State<Login> {
                     SizedBox(height: 50),
                     Icon(
                       Icons.lock,
-                      size: 120,
+                      size: 90,
                     ),
 
-                    SizedBox(height: 20),
+                    SizedBox(height: 18),
                     Text(
                       "Bem vindo de volta!",
                       style: TextStyle(fontSize: 18, color: Colors.grey[550]),
                     ),
 
-                    SizedBox(height: 20),
+                    SizedBox(height: 40),
 
                     // Email
                     //
@@ -143,6 +143,7 @@ class _LoginViewState extends State<Login> {
                         style: TextStyle(
                           fontSize: 18,
                         ),
+                        
                       ),
                     )
                   ],
@@ -151,83 +152,5 @@ class _LoginViewState extends State<Login> {
             ),
           ),
         ));
-  }
-
-  showDataAlert() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  20.0,
-                ),
-              ),
-            ),
-            contentPadding: EdgeInsets.only(
-              top: 10.0,
-            ),
-            title: Text(
-              "Create ID",
-              style: TextStyle(fontSize: 24.0),
-            ),
-            content: Container(
-              height: 400,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Digite seu e-mail",
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Digite o e-mail aqui',
-                            labelText: 'E-mail'),
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 60,
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          // fixedSize: Size(250, 50),
-                        ),
-                        child: Text(
-                          "Enviar",
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('Nota'),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('Você receberá um e-mail dentro de alguns minutos',
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
   }
 }

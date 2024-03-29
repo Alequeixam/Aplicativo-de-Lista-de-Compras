@@ -11,7 +11,6 @@ class Recuperacao extends StatefulWidget {
 }
 
 class _RecuperacaoState extends State<Recuperacao> {
-  
   //Identificador do formulário
   final _formKey = GlobalKey<FormState>();
 
@@ -20,7 +19,7 @@ class _RecuperacaoState extends State<Recuperacao> {
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(20.0),
+          Radius.circular(10.0),
         ),
       ),
       title: Text(
@@ -30,26 +29,24 @@ class _RecuperacaoState extends State<Recuperacao> {
         ),
       ),
       content: Container(
-        height: 350,
+        height: 250,
         child: Form(
           key: _formKey,
           child: Column(
             children: [
               SizedBox(height: 20),
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 6,
-                ),
+                padding: EdgeInsets.fromLTRB(2, 0, 0, 2),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6),
+                  borderRadius: BorderRadius.circular(4),
                   color: Colors.deepPurple[50],
                 ),
                 child: TextFormField(
-                  decoration: const InputDecoration(
-                    //labelText: 'Digite seu e-mail',
+                  decoration: InputDecoration(
+                    labelText: 'Digite seu e-mail de cadastro',
                     icon: Icon(Icons.email),
                     border: InputBorder.none,
-                    hintText: 'nome@email.com',
+                    //hintText: 'nome@email.com',
                   ),
                   validator: (email) {
                     if (email == null || email.isEmpty) {
@@ -61,19 +58,26 @@ class _RecuperacaoState extends State<Recuperacao> {
                   },
                 ),
               ),
-              SizedBox(height: 12,),
+              SizedBox(height: 12),
               ElevatedButton(
                 onPressed: () {
-                  if(_formKey.currentState!.validate()) {
+                  if (_formKey.currentState!.validate()) {
                     Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                          "Um link de recuperação foi enviado para o e-mail informado"),
+                    ));
                   }
-                }, 
-                  child: Text(
-                    "Enviar",
-
-                  ),
-              )
-              
+                },
+                child: Text(
+                  "Enviar",
+                ),
+              ),
+              SizedBox(height: 30),
+              Text(
+                "Depois de clicar em 'Enviar' você receberá um e-mail dentro de alguns minutos",
+                style: TextStyle(fontSize: 15),
+              ),
             ],
           ),
         ),
