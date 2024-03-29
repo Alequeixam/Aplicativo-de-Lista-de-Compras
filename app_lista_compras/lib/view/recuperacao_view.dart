@@ -11,6 +11,10 @@ class Recuperacao extends StatefulWidget {
 }
 
 class _RecuperacaoState extends State<Recuperacao> {
+  
+  //Identificador do formulário
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -22,12 +26,13 @@ class _RecuperacaoState extends State<Recuperacao> {
       title: Text(
         "Recuperar a senha",
         style: TextStyle(
-          fontSize: 14,
+          fontSize: 16,
         ),
       ),
       content: Container(
         height: 350,
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               SizedBox(height: 20),
@@ -41,6 +46,7 @@ class _RecuperacaoState extends State<Recuperacao> {
                 ),
                 child: TextFormField(
                   decoration: const InputDecoration(
+                    //labelText: 'Digite seu e-mail',
                     icon: Icon(Icons.email),
                     border: InputBorder.none,
                     hintText: 'nome@email.com',
@@ -55,6 +61,19 @@ class _RecuperacaoState extends State<Recuperacao> {
                   },
                 ),
               ),
+              SizedBox(height: 12,),
+              ElevatedButton(
+                onPressed: () {
+                  if(_formKey.currentState!.validate()) {
+                    Navigator.pop(context);
+                  }
+                }, 
+                  child: Text(
+                    "Enviar",
+
+                  ),
+              )
+              
             ],
           ),
         ),
