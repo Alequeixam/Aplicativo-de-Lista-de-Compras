@@ -29,7 +29,7 @@ class _RecuperacaoState extends State<Recuperacao> {
         ),
       ),
       content: Container(
-        height: 250,
+        height: 270,
         child: Form(
           key: _formKey,
           child: Column(
@@ -75,7 +75,7 @@ class _RecuperacaoState extends State<Recuperacao> {
               ),
               SizedBox(height: 30),
               Text(
-                "Depois de clicar em 'Enviar' você receberá um e-mail dentro de alguns minutos",
+                "Após clicar em 'Enviar', você receberá dentro de alguns instantes um e-mail com os detalhes para recuperar sua conta",
                 style: TextStyle(fontSize: 15),
               ),
             ],

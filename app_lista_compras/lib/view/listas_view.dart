@@ -14,6 +14,7 @@ class _ListasViewState extends State<ListasView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text('Listas de Compras'),
       ),
       body: SafeArea(

@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:app_lista_compras/view/recuperacao_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/widgets.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -30,6 +32,7 @@ class _LoginViewState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           title: const Text("Login"),
           backgroundColor: Colors.deepPurple[200],
         ),
@@ -145,7 +148,25 @@ class _LoginViewState extends State<Login> {
                         ),
                         
                       ),
-                    )
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: FractionalOffset.bottomCenter,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text("Ainda não possui cadastro?"),
+                            TextButton(
+                                  onPressed: () {},
+                                  child: Text('Cadastre-se aqui.'),
+                                ),
+                          ],
+                        ),
+                      ),
+                    ),
+                   // SizedBox(height: 50),
+
+                    
                   ],
                 ),
               ),
