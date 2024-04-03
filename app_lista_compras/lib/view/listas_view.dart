@@ -63,6 +63,7 @@ class _ListasViewState extends State<ListasView> {
                                         color: Colors.black,
                                       ),
                                     ),
+                                    leading: Icon(Icons.check_box),
                                   ),
                                 );
                               },

@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
-import 'dart:ffi';
 
-import 'package:app_lista_compras/model/lista.dart';
 import 'package:app_lista_compras/view/listas_view.dart';
 import 'package:flutter/material.dart';
 
