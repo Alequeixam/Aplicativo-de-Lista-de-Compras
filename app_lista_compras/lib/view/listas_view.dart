@@ -1,29 +1,32 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:app_lista_compras/view/criar_lista_view.dart';
 import 'package:flutter/material.dart';
-
 import '../model/lista.dart';
-import 'criar_lista_view.dart';
 
 class ListasView extends StatefulWidget {
   const ListasView({super.key});
+
+  //final List<Lista>? listas;
 
   @override
   State<ListasView> createState() => _ListasViewState();
 }
 
 class _ListasViewState extends State<ListasView> {
-  criarLista() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return CriarLista();
-      },
-    );
-  }
+  //Identificador do formulário
+  //final _formKey = GlobalKey<State<CriarLista>>();
+
+  final TextEditingController _nomeLista = TextEditingController();
 
   List<Lista> listasTeste = Lista.listaTeste();
-  List<Lista> listas = [];
+  final List<Lista> _listas = List.empty(growable: true);
+
+  @override
+  void initState() {
+    _listas.add(Lista(nome: "AAAA", itens: List.empty()));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,17 +47,17 @@ class _ListasViewState extends State<ListasView> {
                   children: [
                     barraDeBusca(),
                     SizedBox(height: 20),
-                    listas.isEmpty
+                    _listas.isEmpty
                         ? Text("Você ainda não criou nenhuma lista de compras")
                         : Expanded(
                             child: ListView.builder(
-                              itemCount: listasTeste.length,
+                              itemCount: _listas.length,
                               itemBuilder: (context, index) {
                                 return Card(
                                   child: ListTile(
                                     onTap: () {},
                                     title: Text(
-                                      listasTeste[index].nome.toString(),
+                                      _listas[index].nome,
                                       style: TextStyle(
                                         fontSize: 10,
                                         color: Colors.black,
@@ -73,9 +76,8 @@ class _ListasViewState extends State<ListasView> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: criarLista,
         child: Icon(Icons.add),
-
       ),
     );
   }
@@ -102,6 +104,32 @@ class _ListasViewState extends State<ListasView> {
           hintText: 'Buscar',
         ),
       ),
+    );
+  }
+
+  salvarNome() {
+      setState(() {
+        _listas.add(Lista(nome: _nomeLista.text, itens: []));
+      });
+
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Lista criada com sucesso"),
+        ),
+      );
+  }
+
+  criarLista() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return CriarLista(
+          controller: _nomeLista,
+          onEnviar: salvarNome,
+          //formKey: _formKey,
+        );
+      },
     );
   }
 }

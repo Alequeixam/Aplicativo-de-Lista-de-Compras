@@ -1,9 +1,21 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
+import 'dart:ffi';
+
+import 'package:app_lista_compras/model/lista.dart';
+import 'package:app_lista_compras/view/listas_view.dart';
 import 'package:flutter/material.dart';
 
 class CriarLista extends StatefulWidget {
-  const CriarLista({super.key});
+  final controller;
+  //final formKey;
+  final VoidCallback onEnviar;
+  const CriarLista({
+    super.key,
+    required this.controller,
+    required this.onEnviar,
+    //required this.formKey,
+  });
 
   @override
   State<CriarLista> createState() => _CriarListaState();
@@ -13,6 +25,11 @@ class _CriarListaState extends State<CriarLista> {
   //Identificador do formulário
   final _formKey = GlobalKey<FormState>();
 
+  FormState? getFormState() {
+    return _formKey.currentState;
+  }
+
+  //final TextEditingController _nomeLista = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -22,13 +39,13 @@ class _CriarListaState extends State<CriarLista> {
         ),
       ),
       title: Text(
-        "Recuperar a senha",
+        "Adicionar lista",
         style: TextStyle(
           fontSize: 16,
         ),
       ),
       content: Container(
-        height: 270,
+        height: 220,
         child: Form(
           key: _formKey,
           child: Column(
@@ -41,17 +58,15 @@ class _CriarListaState extends State<CriarLista> {
                   color: Colors.deepPurple[50],
                 ),
                 child: TextFormField(
+                  controller: widget.controller,
                   decoration: InputDecoration(
-                    labelText: 'Digite seu e-mail de cadastro',
-                    icon: Icon(Icons.email),
+                    labelText: 'Digite o nome da lista',
+                    icon: Icon(Icons.list),
                     border: InputBorder.none,
-                    //hintText: 'nome@email.com',
                   ),
-                  validator: (email) {
-                    if (email == null || email.isEmpty) {
-                      return 'Por favor, insira um e-mail';
-                    } else if (!EmailValidator.validate(email)) {
-                      return 'Digite um endereço de e-mail válido!';
+                  validator: (lista) {
+                    if (lista == null || lista.isEmpty) {
+                      return 'Por favor, digite o nome da lista';
                     }
                     return null;
                   },
@@ -59,23 +74,10 @@ class _CriarListaState extends State<CriarLista> {
               ),
               SizedBox(height: 12),
               ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                          "Um link de recuperação foi enviado para o e-mail informado"),
-                    ));
-                  }
-                },
+                onPressed: widget.onEnviar,
                 child: Text(
-                  "Enviar",
+                  "Criar",
                 ),
-              ),
-              SizedBox(height: 30),
-              Text(
-                "Após clicar em 'Enviar', você receberá dentro de alguns instantes um e-mail com os detalhes para recuperar sua conta",
-                style: TextStyle(fontSize: 15),
               ),
             ],
           ),
