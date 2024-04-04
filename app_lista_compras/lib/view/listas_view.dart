@@ -15,7 +15,7 @@ class ListasView extends StatefulWidget {
 
 class _ListasViewState extends State<ListasView> {
   //Identificador do formulário
-  //final _formKey = GlobalKey<State<CriarLista>>();
+  final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _nomeLista = TextEditingController();
 
@@ -108,29 +108,96 @@ class _ListasViewState extends State<ListasView> {
   }
 
   salvarNome() {
+    if (_formKey.currentState!.validate()) {
       setState(() {
         _listas.add(Lista(nome: _nomeLista.text, itens: []));
         _nomeLista.clear();
       });
-
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Lista criada com sucesso"),
         ),
       );
-      
+    }
   }
 
   criarLista() {
     showDialog(
       context: context,
       builder: (context) {
-        return CriarLista(
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10.0),
+            ),
+          ),
+          title: Text(
+            "Adicionar lista",
+            style: TextStyle(
+              fontSize: 16,
+            ),
+          ),
+          content: Container(
+            height: 220,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(2, 0, 0, 2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.deepPurple[50],
+                    ),
+                    child: TextFormField(
+                      controller: _nomeLista,
+                      decoration: InputDecoration(
+                        labelText: 'Digite o nome da lista',
+                        icon: Icon(Icons.list),
+                        border: InputBorder.none,
+                      ),
+                      validator: (lista) {
+                        if (lista == null || lista.isEmpty) {
+                          return 'Por favor, digite o nome da lista';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                  ElevatedButton(
+                    onPressed: salvarNome,
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(110, 40),
+                      backgroundColor: Colors.purple[400],
+                    ),
+                    child: Text(
+                      "Criar",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      "Cancelar",
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+
+        /* /* CriarLista(
           controller: _nomeLista,
           onEnviar: salvarNome,
-          //formKey: _formKey,
-        );
+          //formKey: _formKey, */
+        ); */
       },
     );
   }
