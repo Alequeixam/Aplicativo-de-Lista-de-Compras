@@ -22,11 +22,11 @@ class _ListasViewState extends State<ListasView> {
   List<Lista> listasTeste = Lista.listaTeste();
   final List<Lista> _listas = List.empty(growable: true);
 
-  @override
+  /*@override
   void initState() {
     _listas.add(Lista(nome: "AAAA", itens: List.empty()));
     super.initState();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,6 @@ class _ListasViewState extends State<ListasView> {
                                         color: Colors.black,
                                       ),
                                     ),
-                                    leading: Icon(Icons.check_box),
                                   ),
                                 );
                               },
@@ -111,6 +110,7 @@ class _ListasViewState extends State<ListasView> {
   salvarNome() {
       setState(() {
         _listas.add(Lista(nome: _nomeLista.text, itens: []));
+        _nomeLista.clear();
       });
 
       Navigator.pop(context);
@@ -119,6 +119,7 @@ class _ListasViewState extends State<ListasView> {
           content: Text("Lista criada com sucesso"),
         ),
       );
+      
   }
 
   criarLista() {
