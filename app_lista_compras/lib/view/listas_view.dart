@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:app_lista_compras/view/criar_lista_view.dart';
+import 'package:app_lista_compras/view/itens_view.dart';
 import 'package:flutter/material.dart';
 import '../model/lista.dart';
 
@@ -55,7 +56,12 @@ class _ListasViewState extends State<ListasView> {
                               itemBuilder: (context, index) {
                                 return Card(
                                   child: ListTile(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Itens(lista: _listas[index])));
+                                    },
                                     title: Text(
                                       _listas[index].nome,
                                       style: TextStyle(
@@ -192,12 +198,6 @@ class _ListasViewState extends State<ListasView> {
             ),
           ),
         );
-
-        /* /* CriarLista(
-          controller: _nomeLista,
-          onEnviar: salvarNome,
-          //formKey: _formKey, */
-        ); */
       },
     );
   }
