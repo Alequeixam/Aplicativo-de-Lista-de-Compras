@@ -34,11 +34,11 @@ class _ItensState extends State<Itens> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFEEF0F5),
+      backgroundColor: Color(0xFFF9F0FD),
       appBar: AppBar(
-        backgroundColor: Color(0xFFEEF0F5),
+        backgroundColor: Color(0xFFDCB6FF),
         centerTitle: true,
-        title: Text(widget.lista.nome),
+        title: Text("Lista ${widget.lista.nome}")
       ),
       body: Stack(
         children: [
@@ -48,6 +48,7 @@ class _ItensState extends State<Itens> {
               child: Center(
                 child: Column(
                   children: [
+                    SizedBox(height: 10),
                     barraDeBusca(),
                     SizedBox(height: 20),
                     _itens.isEmpty
@@ -90,15 +91,17 @@ class _ItensState extends State<Itens> {
                                     title: Text(
                                       _itens[index].nome!,
                                       style: TextStyle(
-                                        fontSize: 10,
+                                        fontSize: 15,
                                         color: Colors.black,
+                                        decoration: _itens[index].isDone ? TextDecoration.lineThrough : null,
                                       ),
                                     ),
                                     subtitle: Text(
                                       _itens[index].qtde!,
                                       style: TextStyle(
-                                        fontSize: 8,
+                                        fontSize: 10,
                                         color: Colors.black,
+                                        decoration: _itens[index].isDone ? TextDecoration.lineThrough : null,
                                       ),
                                     ),
                                   ),
@@ -117,7 +120,7 @@ class _ItensState extends State<Itens> {
         onPressed: criarItem,
         child: Icon(Icons.add),
       ),
-      
+
     );
   }
 

@@ -60,7 +60,8 @@ class _ListasViewState extends State<ListasView> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => Itens(lista: _listas[index])));
+                                              builder: (context) => Itens(
+                                                  lista: _listas[index])));
                                     },
                                     title: Text(
                                       _listas[index].nome,
