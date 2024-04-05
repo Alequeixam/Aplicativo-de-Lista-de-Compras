@@ -2,7 +2,7 @@ import '/model/item.dart';
 
 class Lista {
   String nome;
-  late List<Item> itens;
+  List<Item>? itens;
 
   Lista({required this.nome, required this.itens});
 

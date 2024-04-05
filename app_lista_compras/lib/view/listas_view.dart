@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:app_lista_compras/view/criar_lista_view.dart';
 import 'package:app_lista_compras/view/itens_view.dart';
 import 'package:flutter/material.dart';
 import '../model/lista.dart';
@@ -32,9 +31,9 @@ class _ListasViewState extends State<ListasView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFEEF0F5),
+      backgroundColor: Color(0xFFF9F0FD),
       appBar: AppBar(
-        backgroundColor: Color(0xFFEEF0F5),
+        backgroundColor: Color(0xFFDCB6FF),
         centerTitle: true,
         title: Text('Listas de Compras'),
       ),
@@ -46,6 +45,7 @@ class _ListasViewState extends State<ListasView> {
               child: Center(
                 child: Column(
                   children: [
+                    SizedBox(height: 10),
                     barraDeBusca(),
                     SizedBox(height: 20),
                     _listas.isEmpty
@@ -65,8 +65,8 @@ class _ListasViewState extends State<ListasView> {
                                     title: Text(
                                       _listas[index].nome,
                                       style: TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.black,
+                                        fontSize: 17,
+                                        color: Colors.grey.shade800,
                                       ),
                                     ),
                                   ),

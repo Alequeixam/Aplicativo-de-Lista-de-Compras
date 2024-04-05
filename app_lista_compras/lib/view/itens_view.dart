@@ -97,6 +97,7 @@ class _ItensState extends State<Itens> {
                                     subtitle: Text(
                                       _itens[index].qtde!,
                                       style: TextStyle(
+                                        fontSize: 8,
                                         color: Colors.black,
                                       ),
                                     ),
@@ -116,6 +117,7 @@ class _ItensState extends State<Itens> {
         onPressed: criarItem,
         child: Icon(Icons.add),
       ),
+      
     );
   }
 
@@ -123,6 +125,7 @@ class _ItensState extends State<Itens> {
     if (_formKey.currentState!.validate()) {
       setState(() {
         _itens.add(Item(nome: _nomeItem.text, qtde: _qtdItem.text));
+        widget.lista.itens?.add(_itens.last);
         _nomeItem.clear();
         _qtdItem.clear();
       });
