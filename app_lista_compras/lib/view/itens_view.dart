@@ -23,13 +23,14 @@ class _ItensState extends State<Itens> {
 
   List<Item> itensTeste = Item.listaTeste();
   final List<Item> _itens = List.empty(growable: true);
+  List<Item> allItems = [];
   int updateIndex = -1;
 
-  /* @override
+  @override
   void initState() {
-    _itens.add(Item.listaTeste());
+    allItems = _itens;
     super.initState();
-  } */
+  } 
 
   @override
   Widget build(BuildContext context) {
@@ -362,6 +363,7 @@ Widget barraDeBusca() {
       borderRadius: BorderRadius.circular(20),
     ),
     child: TextField(
+      onChanged: (texto) => buscarItem(texto) ,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(0),
         prefixIcon: Icon(
@@ -377,4 +379,8 @@ Widget barraDeBusca() {
       ),
     ),
   );
+}
+
+buscarItem(String texto) {
+
 }
