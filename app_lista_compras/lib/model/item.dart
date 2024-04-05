@@ -1,10 +1,10 @@
 class Item {
-  final String? nome;
-  final String? qtde;
+  late final String? nome;
+   late final String? qtde;
   bool isDone;
 
 
-  Item({required this.nome, required this.qtde, this.isDone = false});
+  Item({ this.nome, this.qtde, this.isDone = false});
 
   static List<Item> listaTeste(){
     return [

@@ -1,4 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_filfer_const_constructors, prefer_const_literals_to_create_immutables
+
+// ignore_for_file: prefer_const_constructors
 
 import 'package:app_lista_compras/model/item.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,8 @@ class _ItensState extends State<Itens> {
   final TextEditingController _qtdItem = TextEditingController();
 
   List<Item> itensTeste = Item.listaTeste();
-  List<Item> _itens = List.empty(growable: true);
+  final List<Item> _itens = List.empty(growable: true);
+  int updateIndex = -1;
 
   /* @override
   void initState() {
@@ -76,7 +79,14 @@ class _ItensState extends State<Itens> {
                                       },
                                     ),
 
-                                    onTap: () {},
+                                    onTap: (){
+                                      _nomeItem.text = _itens[index].nome!;
+                                      _qtdItem.text = _itens[index].qtde!;
+                                      setState(() {
+                                        updateIndex = index;
+                                      });
+                                      editarItem();
+                                    },
                                     title: Text(
                                       _itens[index].nome!,
                                       style: TextStyle(
@@ -120,6 +130,23 @@ class _ItensState extends State<Itens> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Item adicionado com sucesso"),
+        ),
+      );
+    }
+  }
+
+  attItem() {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _itens[updateIndex].nome = _nomeItem.text;
+        _itens[updateIndex].qtde = _qtdItem.text;
+        _nomeItem.clear();
+        _qtdItem.clear();
+      });
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Item atualizado com sucesso"),
         ),
       );
     }
@@ -202,6 +229,103 @@ class _ItensState extends State<Itens> {
                     ),
                     child: Text(
                       "Criar",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      "Cancelar",
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  editarItem() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10.0),
+            ),
+          ),
+          title: Text(
+            "Atualizar Item",
+            style: TextStyle(
+              fontSize: 16,
+            ),
+          ),
+          content: Container(
+            height: 320,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(2, 0, 0, 2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.deepPurple[50],
+                    ),
+                    child: TextFormField(
+                      controller: _nomeItem,
+                      decoration: InputDecoration(
+                        labelText: 'Digite o nome do item',
+                        icon: Icon(Icons.abc),
+                        border: InputBorder.none,
+                      ),
+                      validator: (nome) {
+                        if (nome == null || nome.isEmpty) {
+                          return 'Por favor, digite o nome do item';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 15),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(2, 0, 0, 2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.deepPurple[50],
+                    ),
+                    child: TextFormField(
+                      controller: _qtdItem,
+                      decoration: InputDecoration(
+                        labelText: 'Digite a quantidade do item',
+                        hintText:'Unidade de medida',
+                        icon: Icon(Icons.pin),
+                        border: InputBorder.none,
+                      ),
+                      validator: (qtd) {
+                        if (qtd == null || qtd.isEmpty) {
+                          return 'Por favor, digite a quantidade do item';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                  ElevatedButton(
+                    onPressed: attItem,
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(110, 40),
+                      backgroundColor: Colors.purple[400],
+                    ),
+                    child: Text(
+                      "Atualizar",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
