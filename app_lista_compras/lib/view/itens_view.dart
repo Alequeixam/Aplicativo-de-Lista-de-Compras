@@ -30,17 +30,16 @@ class _ItensState extends State<Itens> {
   void initState() {
     allItems = _itens;
     super.initState();
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF9F0FD),
       appBar: AppBar(
-        backgroundColor: Color(0xFFDCB6FF),
-        centerTitle: true,
-        title: Text("Lista ${widget.lista.nome}")
-      ),
+          backgroundColor: Color(0xFFDCB6FF),
+          centerTitle: true,
+          title: Text("Lista ${widget.lista.nome}")),
       body: Stack(
         children: [
           SafeArea(
@@ -52,57 +51,60 @@ class _ItensState extends State<Itens> {
                     SizedBox(height: 10),
                     barraDeBusca(),
                     SizedBox(height: 20),
-                    _itens.isEmpty
+                    allItems.isEmpty
                         ? Text(
                             "Você ainda não adicionou nenhum item na sua lista '${widget.lista.nome}'")
                         : Expanded(
                             child: ListView.builder(
-                              itemCount: _itens.length,
+                              itemCount: allItems.length,
                               itemBuilder: (context, index) {
                                 return Card(
                                   child: ListTile(
                                     leading: IconButton(
-                                      icon: Icon(_itens[index].isDone
+                                      icon: Icon(allItems[index].isDone
                                           ? Icons.check_box
                                           : Icons.check_box_outline_blank),
                                       onPressed: () {
                                         setState(() {
-                                          _itens[index].isDone = !_itens[index].isDone;
+                                          allItems[index].isDone =
+                                              !allItems[index].isDone;
                                         });
                                       },
                                     ),
                                     trailing: IconButton(
-                                      icon: Icon(
-                                          Icons.delete_sharp),
+                                      icon: Icon(Icons.delete_sharp),
                                       onPressed: () {
                                         setState(() {
-                                          _itens.removeAt(index);
+                                          allItems.removeAt(index);
                                         });
                                       },
                                     ),
-
-                                    onTap: (){
-                                      _nomeItem.text = _itens[index].nome!;
-                                      _qtdItem.text = _itens[index].qtde!;
+                                    onTap: () {
+                                      _nomeItem.text = allItems[index].nome!;
+                                      _qtdItem.text = allItems[index].qtde!;
                                       setState(() {
                                         updateIndex = index;
                                       });
                                       editarItem();
                                     },
                                     title: Text(
-                                      _itens[index].nome!,
+                                      allItems[index].nome!,
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.black,
-                                        decoration: _itens[index].isDone ? TextDecoration.lineThrough : null,
+                                        decoration: allItems[index].isDone
+                                            ? TextDecoration.lineThrough
+                                            : null,
                                       ),
                                     ),
                                     subtitle: Text(
-                                      _itens[index].qtde!,
+                                      allItems[index].qtde!,
                                       style: TextStyle(
                                         fontSize: 10,
                                         color: Colors.black,
-                                        decoration: _itens[index].isDone ? TextDecoration.lineThrough : null,
+                                        decoration: allItems[index].isDone
+                                            ? TextDecoration.lineThrough
+                                            : null,
                                       ),
                                     ),
                                   ),
@@ -121,7 +123,6 @@ class _ItensState extends State<Itens> {
         onPressed: criarItem,
         child: Icon(Icons.add),
       ),
-
     );
   }
 
@@ -312,7 +313,7 @@ class _ItensState extends State<Itens> {
                       controller: _qtdItem,
                       decoration: InputDecoration(
                         labelText: 'Digite a quantidade do item',
-                        hintText:'Unidade de medida',
+                        hintText: 'Unidade de medida',
                         icon: Icon(Icons.pin),
                         border: InputBorder.none,
                       ),
@@ -353,9 +354,21 @@ class _ItensState extends State<Itens> {
       },
     );
   }
-}
 
-Widget barraDeBusca() {
+  buscarItem(String texto) {
+    List<Item> resultados = [];
+    if (texto.isEmpty) {
+      resultados = _itens;
+    } else {
+      resultados =
+          _itens.where((element) => element.nome!.toLowerCase().contains(texto.toLowerCase())).toList();
+    }
+    setState(() {
+      allItems = resultados;
+    });
+  }
+
+  Widget barraDeBusca() {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 10),
     decoration: BoxDecoration(
@@ -363,7 +376,7 @@ Widget barraDeBusca() {
       borderRadius: BorderRadius.circular(20),
     ),
     child: TextField(
-      onChanged: (texto) => buscarItem(texto) ,
+      onChanged: (texto) => buscarItem(texto),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(0),
         prefixIcon: Icon(
@@ -380,7 +393,7 @@ Widget barraDeBusca() {
     ),
   );
 }
-
-buscarItem(String texto) {
-
 }
+
+
+
