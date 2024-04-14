@@ -1,33 +1,19 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:app_lista_compras/view/recuperacao_view.dart';
-import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Cadastro extends StatefulWidget {
+  Cadastro({super.key});
 
   @override
-  State<Login> createState() => _LoginViewState();
+  State<Cadastro> createState() => _CadastroState();
 }
 
-class _LoginViewState extends State<Login> {
-  //Identificador do formulário
+class _CadastroState extends State<Cadastro> {
   final _formKey = GlobalKey<FormState>();
+  final _senhaController1 = TextEditingController();
+  final _senhaController2 = TextEditingController();
 
-  //Controladores dos campos de texto
-  final _emailController = TextEditingController();
-  final _senhaController = TextEditingController();
   bool isVisivel = false;
-
-  recuperarSenha() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Recuperacao();
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,20 +39,20 @@ class _LoginViewState extends State<Login> {
                         IconButton(
                           icon: Icon(Icons.info_outline),
                           onPressed: () {
-                            Navigator.pushNamed(context, 'sobre_view');
+                            Navigator.pushNamed(context, 'cadastro_view');
                           },
                         ),
                       ],
                     ),
-                    SizedBox(height: 50),
+                    SizedBox(height: 20),
                     Icon(
                       Icons.lock,
-                      size: 90,
+                      size: 50,
                     ),
 
                     SizedBox(height: 18),
                     Text(
-                      "Bem vindo de volta!",
+                      "Crie uma conta no app",
                       style: TextStyle(fontSize: 18, color: Colors.grey[550]),
                     ),
 
@@ -111,6 +97,7 @@ class _LoginViewState extends State<Login> {
                         color: Colors.deepPurple[50],
                       ),
                       child: TextFormField(
+                        controller: _senhaController1,
                         obscureText: !isVisivel,
                         decoration: InputDecoration(
                           icon: Icon(Icons.lock),
@@ -137,47 +124,73 @@ class _LoginViewState extends State<Login> {
                         },
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: recuperarSenha,
-                          child: Text('Esqueceu a senha?'),
+                    const SizedBox(height: 10),
+
+                    // Senha 2
+                    //
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: Colors.deepPurple[50],
+                      ),
+                      child: TextFormField(
+                        controller: _senhaController2,
+                        obscureText: !isVisivel,
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.lock),
+                          border: InputBorder.none,
+                          hintText: 'repita a senha',
+                          // define como visivel ou nao o campo da senha
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isVisivel = !isVisivel;
+                                });
+                              },
+                              icon: Icon(!isVisivel
+                                  ? Icons.visibility
+                                  : Icons.visibility_off)),
                         ),
-                      ],
+                        validator: (senha) {
+                          if (senha == null || senha.isEmpty) {
+                            return 'Por favor, insira uma senha';
+                          } else if (senha.length < 6) {
+                            return 'A senha deve conter no mínimo 6 dígitos!';
+                          } else if (_senhaController1.text != _senhaController2.text) {
+                            return 'As senhas devem ser iguais.';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                     const SizedBox(height: 60),
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          Navigator.pushNamed(context, 'listas_view');
+                          Navigator.popAndPushNamed(context, 'login_view');
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("Conta criada com sucesso!"),
+                          ));
                         }
                       },
-                      child: Text(
-                        "Entrar",
+                      child: const Text(
+                        "Cadastrar",
                         style: TextStyle(
                           fontSize: 18,
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Align(
-                        alignment: FractionalOffset.bottomCenter,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text("Ainda não possui cadastro?"),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, 'cadastro_view');
-                              },
-                              child: Text('Cadastre-se aqui.'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    // SizedBox(height: 50),
+                    const SizedBox(height: 10),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text("Cancelar"),
+                    )
                   ],
                 ),
               ),
