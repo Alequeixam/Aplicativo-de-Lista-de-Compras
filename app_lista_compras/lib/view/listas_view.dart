@@ -114,6 +114,18 @@ class _ListasViewState extends State<ListasView> {
     );
   }
 
+  buscarLista(String texto) {
+    List<Lista> resultado = [];
+    if (texto.isEmpty) {
+      resultado = _listas;
+    } else {
+      resultado = _listas.where((element) => element.nome.toLowerCase().contains(texto.toLowerCase())).toList();
+    }
+    setState(() {
+      allListas = resultado;
+    });
+  }
+
   Widget barraDeBusca() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -122,6 +134,7 @@ class _ListasViewState extends State<ListasView> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
+        onChanged: (value) => buscarLista(value),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(0),
           prefixIcon: Icon(
