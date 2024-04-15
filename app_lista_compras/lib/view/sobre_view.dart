@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class Sobre extends StatelessWidget {
@@ -45,7 +44,7 @@ class Sobre extends StatelessWidget {
                         Text("Alex Henrique Santana"),
                         SizedBox(width: 5),
                         InkWell(
-                          onTap: () => launchUrlString("https://github.com/Alequeixam/"),
+                          onTap: () => launchUrlString(_urlGitHub),
                           
                           child: FaIcon(FontAwesomeIcons.github),
                           

@@ -77,6 +77,10 @@ class _ItensState extends State<Itens> {
                                         setState(() {
                                           allItems.removeAt(index);
                                         });
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                          content: Text("Item deletado com sucesso"),
+                                          duration: Duration(milliseconds: 1350),
+                                        ));
                                       },
                                     ),
                                     onTap: () {
@@ -138,6 +142,7 @@ class _ItensState extends State<Itens> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Item adicionado com sucesso"),
+          duration: Duration(milliseconds: 1350),
         ),
       );
     }
@@ -155,6 +160,7 @@ class _ItensState extends State<Itens> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Item atualizado com sucesso"),
+          duration: Duration(milliseconds: 1350),
         ),
       );
     }
@@ -216,7 +222,7 @@ class _ItensState extends State<Itens> {
                       decoration: InputDecoration(
                         labelText: 'Digite a quantidade do item',
                         hintText:
-                            'Você pode digitar também a unidade de medida',
+                            'quantidade e unidade de medida',
                         icon: Icon(Icons.pin),
                         border: InputBorder.none,
                       ),

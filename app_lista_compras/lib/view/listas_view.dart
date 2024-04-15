@@ -22,11 +22,14 @@ class _ListasViewState extends State<ListasView> {
   List<Lista> listasTeste = Lista.listaTeste();
   final List<Lista> _listas = List.empty(growable: true);
 
-  /*@override
+  List<Lista> allListas = [];
+  int updateIndex = -1;
+
+  @override
   void initState() {
-    _listas.add(Lista(nome: "AAAA", itens: List.empty()));
+    allListas = _listas;
     super.initState();
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +51,11 @@ class _ListasViewState extends State<ListasView> {
                     SizedBox(height: 10),
                     barraDeBusca(),
                     SizedBox(height: 20),
-                    _listas.isEmpty
+                    allListas.isEmpty
                         ? Text("Você ainda não criou nenhuma lista de compras")
                         : Expanded(
                             child: ListView.builder(
-                              itemCount: _listas.length,
+                              itemCount: allListas.length,
                               itemBuilder: (context, index) {
                                 return Card(
                                   child: ListTile(
@@ -61,14 +64,36 @@ class _ListasViewState extends State<ListasView> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => Itens(
-                                                  lista: _listas[index])));
+                                                  lista: allListas[index])));
                                     },
                                     title: Text(
-                                      _listas[index].nome,
+                                      allListas[index].nome,
                                       style: TextStyle(
                                         fontSize: 17,
                                         color: Colors.grey.shade800,
                                       ),
+                                    ),
+                                    leading: IconButton(
+                                      icon: Icon(Icons.edit),
+                                      onPressed: () {
+                                        _nomeLista.text = allListas[index].nome;
+                                        setState(() {
+                                          updateIndex = index;
+                                        });
+                                        editarItem();
+                                      },
+                                    ),
+                                    trailing: IconButton(
+                                      icon: Icon(Icons.delete_sharp),
+                                      onPressed: () {
+                                        setState(() {
+                                          allListas.removeAt(index);
+                                        });
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                          content: Text("Lista deletada com sucesso"),
+                                          duration: Duration(milliseconds: 1350),
+                                        ));
+                                      },
                                     ),
                                   ),
                                 );
@@ -124,6 +149,7 @@ class _ListasViewState extends State<ListasView> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Lista criada com sucesso"),
+          
         ),
       );
     }
@@ -201,5 +227,95 @@ class _ListasViewState extends State<ListasView> {
         );
       },
     );
+  }
+
+  editarItem() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10.0),
+            ),
+          ),
+          title: Text(
+            "Atualizar lista",
+            style: TextStyle(
+              fontSize: 16,
+            ),
+          ),
+          content: Container(
+            height: 220,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(2, 0, 0, 2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.deepPurple[50],
+                    ),
+                    child: TextFormField(
+                      controller: _nomeLista,
+                      decoration: InputDecoration(
+                        labelText: 'Digite o nome da lista',
+                        icon: Icon(Icons.list),
+                        border: InputBorder.none,
+                      ),
+                      validator: (lista) {
+                        if (lista == null || lista.isEmpty) {
+                          return 'Por favor, digite o nome da lista';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                  ElevatedButton(
+                    onPressed: editarNome,
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(110, 40),
+                      backgroundColor: Colors.purple[400],
+                    ),
+                    child: Text(
+                      "Criar",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      "Cancelar",
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void editarNome() {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _listas[updateIndex].nome = _nomeLista.text;
+        _nomeLista.clear();
+      });
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Nome da lista atualizado com sucesso"),
+          duration: Duration(milliseconds: 1350),
+        ),
+      );
+    }
   }
 }
