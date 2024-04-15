@@ -1,5 +1,4 @@
 # Aplicativo-de-Lista-de-Compras
-
-## App
-
-### Flutter
+Projeto de aplicativo para a avaliação parcial B1
+## Dev:
+# Alex Henrique Santana
