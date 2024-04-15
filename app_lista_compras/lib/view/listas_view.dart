@@ -86,13 +86,14 @@ class _ListasViewState extends State<ListasView> {
                                     trailing: IconButton(
                                       icon: Icon(Icons.delete_sharp),
                                       onPressed: () {
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                          content: Text("'${allListas[index].nome}' deletada com sucesso"),
+                                          duration: Duration(milliseconds: 1350),
+                                        ));
                                         setState(() {
                                           allListas.removeAt(index);
                                         });
-                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                          content: Text("Lista deletada com sucesso"),
-                                          duration: Duration(milliseconds: 1350),
-                                        ));
+                                        
                                       },
                                     ),
                                   ),
